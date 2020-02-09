@@ -1,4 +1,3 @@
-CSE 310 Project
 Group 41: Minh Nguyen, Shanshan Chen, Ivanna Kiyashka
 
 To obtain the source code, unzip the file submitted:
