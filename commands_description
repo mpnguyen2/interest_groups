@@ -1,34 +1,17 @@
-Project: Interest Groups
-
-Using the Internet domain sockets, implement a network application that supports interest-based discussion groups.
-
-Building a single-server system
-
-All discussion groups are hosted at a single server. All users access this single server to participate in discussion groups. Each user has a unique user ID. Each discussion group has a unique group ID and a unique group name.  Each user post has a unique post ID, a subject line, and a content body. Each post is also associated with the user ID of the post author as well as a time stamp denoting when the post is submitted.
-
-The server is started first and waits at a known port for requests from clients. The port number that the server listens at can be hard-coded, or can be output to the standard output from your program and used when starting client programs. The client program takes two command line arguments: (i) the name of the machine on which the server program is running, (ii) the port number that the server is listening at.
-
-Commands
-
-login – this command takes one argument, your user ID. It is used by the application to determine which discussion groups you have subscribed to, and for each subscribed group, which posts you have read.  For simplicity, we do not prompt the user for a password and skip the authentication process.
-
-help – this command takes no argument. It prints a list of supported commands and sub-commands. For each command or sub-command, a brief description of its function and the syntax of usage are displayed.
-
-Once a user is logged in, the following commands should be supported:
+The following commands are supported once an user logged in:
 
 ag - this command stands for “all groups”. It takes an optional argument, N, and lists the names of all existing discussion groups, N groups at a time, numbered 1 to N.  If N is not specified, a default value is used. Below is an example output of the command “ag 5”.  Whether or not a group is a subscribed group is indicated in parentheses. In this example, among the five groups displayed, the user is currently subscribed to groups comp.lang.python and comp.lang.javascript.
 
-1.  ( ) comp.programming
+a.  ( ) comp.programming
 
-2.  ( ) comp.os.threads
+b.  ( ) comp.os.threads
 
-3.  ( ) comp.lang.c
+c.  ( ) comp.lang.c
 
-4.  (s) comp.lang.python
+d.  (s) comp.lang.python
 
-5.  (s) comp.lang.javascript
+e.  (s) comp.lang.javascript
 
-At this time, the following sub-commands should be supported:
 
 s – subscribe to groups. It takes one or more numbers between 1 and N as arguments. E.g., given the output above, the user may enter “s 1 3” to subscribe to two more groups: comp.programming and comp.lang.c
 
@@ -40,29 +23,29 @@ q – exits from the ag command, before finishing displaying all groups
 
 sg - this command stands for “subscribed groups”. It takes an optional argument, N, and lists the names of all subscribed groups, N groups at a time, numbered 1 to N.  If N is not specified, a default value is used. Below is an example output of the command “sg 5”.  The number of new posts in each group is shown before the group. E.g., there are 18 new posts in group comp.programming since the user last listed this group, and there are no new posts in rec.arts.ascii
 
-1.    18   comp.programming
+a. 18   comp.programming
 
-2.     2   comp.lang.c
+b. 	2   comp.lang.c
 
-3.     3   comp.lang.python
+c.  3   comp.lang.python
 
-4.    27   sci.crypt
+d. 27   sci.crypt
 
-5.         rec.arts.ascii
+e.      rec.arts.ascii
 
 The same set of sub-commands as the ag command should be supported, except the s sub-command. These include the u, n, and q sub-commands.
 
 rg - this command stands for “read group”. It takes one mandatory argument, gname, and an optional argument N, and displays the (status – new or not, time stamp, subject line) of all posts in the group gname, N posts at a time. If N is not specified, a default value is used. gname must be a subscribed group. When displaying posts, those unread (new) posts should be displayed first.  Below is an example output of the command “rg comp.lang.python 5”
 
-1.  N  Nov 12 19:34:02   Sort a Python dictionary by value 
+a.  N  Nov 12 19:34:02   Sort a Python dictionary by value 
 
-2.  N  Nov 11 08:11:34   How to print to stderr in Python?
+b.  N  Nov 11 08:11:34   How to print to stderr in Python?
 
-3.  N  Nov 10 22:05:47   “Print” and “Input” in one line
+c.  N  Nov 10 22:05:47   “Print” and “Input” in one line
 
-4.     Nov  9 13:59:05   How not to display the user inputs?
+d.     Nov  9 13:59:05   How not to display the user inputs?
 
-5.     Nov  9 12:46:10   Declaring custom exceptions
+e.     Nov  9 12:46:10   Declaring custom exceptions
 
 A list of 5 posts are displayed. Three new posts are shown first, indicated by the letter ‘N’.  The following sub-commands are supported:
 
@@ -83,25 +66,3 @@ p – post to the group. This sub-command allows a user to compose and submit a 
 The client program prompts the user for a line denoting the post subject, and then the content of the post, until some special character sequence, such as “\n.\n” – a dot by itself on a line, which denotes the end of post, is entered by the user. The post is then submitted to the server.  Afterwards, a new list of N posts should be displayed, including the newly submitted post which is shown as unread.
 
 q – exits from the rg command
-
-The format to use to display the content of a post is as follows:
-
-Group: comp.lang.python 
-
-Subject: Sort a Python dictionary by value
-
-Author: Gern Blanston
-
-Date: Sat, Nov 12 19:34:03 EST 2016
-
- 
-
-I have a dictionary of values read from two fields in a database: a string field and a numeric field. The string field is unique, so that is the key of the dictionary.
-
- 
-
-I can sort on the keys, but how can I sort based on the values?
-
- 
-
-logout – this command takes no argument. It logs out the current user, and terminate the client program after all proper updates are completed.
